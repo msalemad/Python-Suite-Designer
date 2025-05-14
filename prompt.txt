@@ -1,0 +1,595 @@
+# PROMPT PRINCIPAL PARA CONTINUAR EL DESARROLLO DEL PROYECTO
+
+Este archivo contiene el prompt completo y detallado del proyecto "Python Suite Designer". Úsalo siempre como referencia para continuar la implementación, extender funcionalidades o pedir ayuda a una IA, asegurando que el desarrollo siga la visión y requisitos originales.
+
+---
+
+## COMPRENSIÓN DEL PROYECTO (por GitHub Copilot)
+
+Python Suite Designer es una suite modular avanzada para el diseño visual de interfaces gráficas (UI/UX y GUI) en Python, orientada a usuarios profesionales y desarrolladores. El objetivo es permitir la construcción visual de interfaces arrastrando y soltando más de 800 widgets y variantes desde una toolbox extensa hacia un lienzo flexible y desacoplable, con exportación a múltiples formatos y generación de código listo para producción.
+
+El proyecto está estructurado en módulos independientes y carpetas especializadas (`core/`, `ui/`, `widgets/`, `plugins/`, `themes/`, `examples/`, etc.), facilitando la escalabilidad y el mantenimiento. Se utiliza PyQt6 (o PySide6) como framework principal para la GUI, y se integran herramientas modernas como PyInstaller, GitPython, watchdog, jinja2 y jsonschema.
+
+La aplicación incluye:
+- Interfaz moderna, sin bordes redondeados, con barra de título fusionada y barra de estado discreta.
+- Toolbox flotante y buscador inteligente de widgets.
+- Lienzo visual acoplable/desacoplable, con soporte para layouts flexibles, rejilla, reglas y guías inteligentes.
+- Inspector de propiedades, navegador jerárquico de widgets, paneles de animaciones, eventos, macros, logs, historial, capas, rutas y navegación multipágina.
+- Sistema de plugins/extensiones, administración de assets, drag-and-drop de archivos externos, importadores/exportadores de múltiples formatos, integración completa con Git y terminal embebido.
+- Personalización avanzada de estilos y temas, soporte multilingüe, vista responsive, generación automática de documentación y modo presentación.
+- Testing interactivo, live reload, generador aleatorio de UIs, control por voz opcional y verificador de compatibilidad de widgets.
+
+El desarrollo debe seguir la estructura modular, mantener el enfoque profesional y la visión original, y aprovechar los puntos de entrada y placeholders ya definidos para cada funcionalidad. Este prompt debe consultarse siempre antes de continuar el desarrollo o pedir ayuda a una IA, para asegurar la coherencia y calidad del proyecto.
+
+---
+
+## COSAS FALTANTES O A REVISAR EN LA APP (por GitHub Copilot)
+
+**Esta sección ha sido resuelta y convertida en una guía de implementación.**
+
+### 1. Implementación real de funcionalidades
+- Cada módulo y clase debe tener su lógica implementada, no solo esqueletos. Por ejemplo: guardar/cargar proyectos, exportar/importar, drag-and-drop, integración con Git, etc.
+- El canvas debe permitir agregar, mover, editar y eliminar widgets visualmente.
+- El inspector de propiedades debe mostrar y permitir editar propiedades de cualquier widget seleccionado.
+- El historial debe registrar todas las acciones relevantes y permitir undo/redo.
+- El sistema de temas y estilos debe permitir cambiar entre temas y editar estilos globales y por widget.
+- El sistema de plugins debe permitir instalar, activar/desactivar y usar plugins/extensiones.
+- El toolbox debe estar poblado con todos los widgets y variantes, y permitir búsqueda y drag-and-drop.
+- El sistema de assets debe permitir importar, gestionar y usar imágenes, fuentes, sonidos, etc.
+- El sistema de testing interactivo y live reload debe permitir probar la UI y recargar cambios sin reiniciar la app.
+- El generador de documentación debe crear Markdown y mostrar previews.
+- El panel de terminal debe ejecutar comandos Git y mostrar la salida.
+- El modo presentación y la vista responsive deben funcionar y ser accesibles desde la UI.
+- El sistema de macros debe permitir grabar, guardar y ejecutar automatizaciones.
+- El sistema de validaciones y compatibilidad debe verificar formularios y widgets compatibles.
+- El sistema de rutas y navegación multipágina debe permitir crear y navegar entre páginas.
+- El generador aleatorio de UIs debe poblar el canvas con widgets para pruebas.
+- El control por voz debe funcionar (si está activado).
+- El sistema de logs debe registrar advertencias y errores de la app.
+- El importador/exportador debe soportar todos los formatos requeridos.
+- El sistema de capas debe permitir ver y modificar el Z-index de los widgets.
+- El navegador jerárquico debe mostrar la estructura DOM de la UI.
+- El panel de animaciones y eventos debe permitir agregar y editar animaciones/eventos por widget.
+
+### 2. Integración entre módulos
+- Los managers y paneles deben estar conectados entre sí y con la UI principal.
+- Los menús y acciones deben llamar a los métodos de los managers y actualizar la UI en consecuencia.
+- Los paneles deben poder comunicarse entre sí (por ejemplo, seleccionar un widget en el navegador debe actualizar el inspector y el canvas).
+
+### 3. Pruebas y documentación
+- Implementar pruebas unitarias y de integración para los módulos principales.
+- Completar el README y la documentación para explicar el uso, la arquitectura y cómo contribuir/extender la app.
+- Añadir ejemplos de proyectos y plantillas de UI.
+
+### 4. Recursos gráficos y branding
+- Añadir íconos, logos y recursos gráficos reales en las carpetas correspondientes.
+
+**Para continuar el desarrollo:**
+- Implementa cada módulo y función siguiendo la estructura y los nombres ya definidos.
+- Integra los paneles y managers en la UI principal y conecta los menús y acciones a la lógica real.
+- Añade widgets reales a la toolbox y haz funcional el canvas.
+- Implementa la lógica de temas, estilos, historial, plugins, exportación, importación, testing, documentación, etc.
+- Usa este archivo como guía para mantener la coherencia y visión del proyecto.
+
+---
+
+## PROMPT PRINCIPAL DEL PROYECTO
+
+@workspace # Proyecto: Python-Suite-Design
+# Tipo: Aplicación modular avanzada de diseño de interfaces UI/UX y GUI
+# Lenguaje: Python 3.10+
+# Estilo: Interfaz moderna (sin bordes redondeados, barra de título fusionada, barra de estado discreta)
+# Framework recomendado: PyQt6 o PySide6 (moderno, altamente customizable y extensible)
+# Módulos adicionales: PyInstaller, GitPython, watchdog, jinja2, jsonschema, etc.
+
+## Objetivo:
+Crear una suite modular para diseñar interfaces gráficas profesionales completas. Esta suite debe permitir al usuario construir visualmente UIs arrastrando más de 800 widgets y variantes desde una toolbox inmensa hacia un lienzo flexible, acoplable y desacoplable. Debe exportar el diseño final a múltiples formatos y generar todos los archivos necesarios para continuar el desarrollo en otras IDEs.
+
+---
+
+## FUNCIONALIDADES OBLIGATORIAS
+
+### 🔧 INTERFAZ Y ESTRUCTURA
+- Interfaz con bordes rectos (sin esquinas redondeadas)
+- Barra de título fusionada con la interfaz (estilo moderno, como VSCode, Figma, etc.)
+- Barra de estado extremadamente discreta
+- Toolbox flotante con mínimo 800 widgets y variantes listos para usar
+- Lienzo de diseño visual extremadamente funcional, acoplable y desacoplable
+- Opción para unificar (acoplar) todo en una sola ventana o separarlo en ventanas independientes
+- Botón para alternar entre vista previa en tiempo real y edición
+
+### 🎨 PERSONALIZACIÓN Y ESTILO
+- Paleta de colores y estilos personalizables por componente
+- Temas claro, oscuro e híbrido
+- Editor visual de estilos globales (override por widget)
+- Rejilla, reglas y guías inteligentes tipo Figma/Photoshop
+
+### 🧰 TOOLBOX
+- Toolbox con 800+ widgets:
+  - Botones, sliders, progress bars, tabs, tabs verticales, campos de texto, imágenes, canvas, gráficos, tablas, listas, tooltips, drag-and-drop handlers, inputs avanzados, toolbars, splitters, dockers, íconos SVG, etc.
+  - Variantes de cada uno (mínimo 2-4 variantes por widget)
+  - Soporte de animaciones, eventos, estilos hover/focus, disabled, etc.
+  - Widgets personalizados (definidos por el usuario y salvables)
+  - Buscador inteligente de widgets por nombre o tipo
+  - Soporte para importar extensiones/plugins con widgets externos
+
+### 📁 PROYECTOS Y EXPORTACIÓN
+- Guardar y cargar proyectos en múltiples formatos: `.py`, `.json`, `.ui`, `.yaml`, `.xml`, `.gui`
+- Generar `requirements.txt` con todos los imports y dependencias
+- Generar estructura de carpetas para apps modulares (con `__init__.py`)
+- Exportación como app `.exe` (opcional) usando PyInstaller
+- Modo presentación de la UI
+- Generador automático de documentación Markdown con preview
+- Exportación y visualización del código Python generado en tiempo real
+- Editor de código integrado para modificar directamente el `.py` generado
+
+### 🧠 INTERACTIVIDAD Y ASISTENCIA
+- Inspector de propiedades tipo Unity: sliders, checkboxes, menús
+- Anclajes y layouts flexibles (grid, horizontal, vertical, libre)
+- Navegador jerárquico de widgets (DOM Tree)
+- Test interactivo de la UI directamente desde la app
+- Sistema de animaciones por componente
+- Panel de control de visibilidad, eventos y estado básico
+- Conexión visual entre widgets (node editor eprints)
+- Generador automático de formularios con validaciones
+- Control por voz opcional (puede estar desactivado por defecto)
+- Generador aleatorio de UI con widgets para benchmarking
+- Soporte multilingüe (selector de idioma y localización)
+- Vista responsive (móvil, tablet, escritorio)
+- Templates de main window drag-and-droppables
+- Panel de rutas y navegación multi-página
+- Sistema de macros y automatización de patrones de diseño
+- Verificador de compatibilidad entre widgets
+- Visualizador de capas (Z-index)
+- Historial completo de cambios (undo/redo)
+- Panel de logs y advertencias
+
+### 🔌 PLUGINS Y EXTENSIONES
+- Sistema de plugins para añadir más widgets/extensiones
+- Proveedores sugeridos (por ejemplo):
+  - PyPi/WidgetStore externo con UI
+  - GitHub/Repositorios personales
+  - Matplotlib, Plotly, Dash, etc.
+- Panel de extensiones activables/desactivables
+
+### 📂 ASSETS Y DRAG & DROP
+- Administración completa de assets (imágenes, sonidos, íconos, fuentes)
+- Drag-and-drop de archivos externos (imágenes, configs, fuentes)
+- Importación de archivos `.ui` (QtDesigner) y `.kv` (Kivy)
+
+### 🧪 TESTING, DOCUMENTACIÓN Y GIT
+- Auto-generación de documentación del layout
+- Terminal embebido para git-cli y gh-cli
+- Soporte completo para Git: login, clone, pull, push, sync, create repo, commit, etc.
+- Panel con eventos del sistema (dónde se hace clic, drag, hover, etc.)
+- Live reload de código sin reiniciar la app
+
+---
+
+## REQUISITOS DE DESARROLLO
+
+- Usa PyQt6 o PySide6 para la GUI
+- Modulariza todo en carpetas: core/, ui/, widgets/, plugins/, themes/, examples/, etc.
+- Genera archivos `.py` bien comentados
+- Usa type hints y typing
+- Prepara entorno virtual automáticamente al primer arranque
+- Incluye README completo, íconos y branding
+- Código limpio, escalable, mantenible
+
+---
+
+## TAREAS A CUMPLIR
+1. Inicializa el proyecto con la estructura modular adecuada
+2. Implementa primero la base visual (dockables, barra de título fusionada, toolbox)
+3. Luego implementa el sistema de widgets, toolbox, drag-and-drop y exportación básica
+4. Finalmente integra los extras: inspector, documentación, git, plugins, animaciones, etc.
+
+---
+
+## NOTA PARA IA O DESARROLLADORES
+
+Siempre que continúes el desarrollo, asegúrate de:
+- Mantener la estructura modular y los nombres de archivos/carpetas.
+- No cambiar el enfoque ni el objetivo del proyecto.
+- Seguir el estilo visual y de código definido aquí.
+- Consultar este archivo antes de implementar nuevas funcionalidades o pedir ayuda a una IA.
+
+---
+
+## LISTA DE WIDGETS YA INCLUIDOS Y POSIBLES A INCLUIR EN LA TOOLBOX
+
+### Widgets ya implementados en la toolbox:
+- Botón básico (`BasicButton`)
+- Botón plano (`FlatButton`)
+- Botón con ícono (`IconButton`)
+- Botón redondeado (`RoundedButton`)
+- Botón ghost (`GhostButton`)
+- Botón outline (`OutlineButton`)
+- Botón toggle (`ToggleButton`)
+- Botón flotante (`FloatingButton`)
+- Slider básico (`BasicSlider`)
+- Slider estilizado (`StyledSlider`)
+- Slider vertical (`VerticalSlider`)
+- Slider de rango (`RangeSlider`)
+- Slider de color (`ColoredSlider`)
+- Barra de progreso (`BasicProgressBar`)
+- Barra de progreso circular (`CircularProgressBar`)
+- Barra de progreso vertical (`VerticalProgressBar`)
+- Barra de progreso gradiente (`GradientProgressBar`)
+- Campo de texto (`BasicTextField`)
+- Campo de contraseña (`PasswordTextField`)
+- Campo de texto multilinea (`MultilineTextField`)
+- Campo de texto deshabilitado (`DisabledTextField`)
+- Campo de texto solo lectura (`ReadOnlyTextField`)
+- ...y los que ya estén implementados en widgets/
+
+### Widgets que podríamos añadir (sin repetir los anteriores):
+
+#### Controles de entrada
+- QCheckBox (Checkbox)
+- QRadioButton (RadioButton)
+- QComboBox (ComboBox)
+- QSpinBox (SpinBox)
+- QDoubleSpinBox (SpinBox doble)
+- QDateEdit (Selector de fecha)
+- QTimeEdit (Selector de hora)
+- QDateTimeEdit (Selector de fecha y hora)
+- QPlainTextEdit (Campo de texto plano)
+- QProgressBar (Barra de progreso estándar)
+- QScrollBar (Barra de desplazamiento)
+- QCalendarWidget (Calendario)
+- QFontComboBox (Selector de fuente)
+- QColorDialog (Selector de color)
+- QFileDialog (Selector de archivo)
+- QInputDialog (Input modal)
+- QKeySequenceEdit (Editor de atajos de teclado)
+- QCompleter (Autocompletador)
+
+#### Contenedores y layouts
+- QGroupBox (Grupo de widgets)
+- QTabWidget (Pestañas)
+- QStackedWidget (Panel apilado)
+- QSplitter (Divisor)
+- QFrame (Marco)
+- QScrollArea (Área con scroll)
+- QDockWidget (Panel acoplable)
+- QToolBox (Panel de herramientas tipo acordeón)
+- QFormLayout (Formulario)
+- QGridLayout (Grilla)
+- QHBoxLayout (Layout horizontal)
+- QVBoxLayout (Layout vertical)
+
+#### Visualización de datos
+- QTableWidget (Tabla)
+- QTreeWidget (Árbol)
+- QListWidget (Lista)
+- QTableView (Vista de tabla)
+- QTreeView (Vista de árbol)
+- QListView (Vista de lista)
+- QColumnView (Vista de columnas)
+- QDataWidgetMapper (Mapeo de datos)
+- QChartView (Gráficos, si usas QtCharts)
+- QGraphicsView (Vista de gráficos 2D)
+- QSvgWidget (SVG)
+- QWebEngineView (WebView, si tienes QtWebEngine)
+
+#### Elementos gráficos y multimedia
+- QLabel (Etiqueta)
+- QPixmap/QImage (Imagen)
+- QMovie (Animación GIF)
+- QSoundEffect (Sonido)
+- QVideoWidget (Video, si tienes QtMultimedia)
+- QOpenGLWidget (OpenGL)
+- QLCDNumber (Display numérico tipo LCD)
+- QProgressIndicator (Indicador de carga personalizado)
+- QToolTip (Tooltip)
+- QStatusBar (Barra de estado)
+- QMenuBar (Barra de menús)
+- QToolBar (Barra de herramientas)
+- QSystemTrayIcon (Icono de bandeja)
+- QSplashScreen (Pantalla de carga)
+- QDialog (Diálogo modal)
+- QMessageBox (Mensaje modal)
+- QWizard (Asistente paso a paso)
+- QErrorMessage (Mensaje de error)
+- QShortcut (Atajo de teclado)
+
+#### Widgets personalizados y avanzados
+- Breadcrumb (Navegación jerárquica)
+- Avatar (Imagen de usuario)
+- Badge (Indicador numérico)
+- Chip (Etiqueta interactiva)
+- Stepper (Pasos)
+- Timeline (Línea de tiempo)
+- Carousel (Carrusel de imágenes)
+- Accordion (Acordeón)
+- ExpansionPanel (Panel expandible)
+- Snackbar (Notificación inferior)
+- NotificationCenter (Centro de notificaciones)
+- Rating (Estrellas, corazones, etc.)
+- Pagination (Paginador)
+- Parallax (Efecto visual)
+- SkeletonLoader (Cargador esqueleto)
+- QRCode (Código QR)
+- Barcode (Código de barras)
+- SignaturePad (Firma digital)
+- RichTextEditor (Editor de texto enriquecido)
+- MarkdownViewer (Visor Markdown)
+- JsonViewer (Visor JSON)
+- XmlViewer (Visor XML)
+- YamlViewer (Visor YAML)
+- HtmlViewer (Visor HTML)
+- PdfViewer (Visor PDF)
+- TerminalPanel (Terminal embebida)
+- LogPanel (Panel de logs)
+- LayerViewer (Visor de capas)
+- NodeEditor (Editor de nodos)
+- AnimationPanel (Panel de animaciones)
+- EventPanel (Panel de eventos)
+- MacroPanel (Panel de macros)
+- PluginPanel (Panel de plugins)
+- NavigationPanel (Panel de navegación multipágina)
+- CompatibilityChecker (Verificador de compatibilidad)
+- PreviewPanel (Vista previa)
+- PresentationMode (Modo presentación)
+- ExternalAssetHandler (Gestor de assets externos)
+- ImporterUI (Importador de archivos UI)
+- ExporterUI (Exportador de archivos UI)
+- StyleEditor (Editor de estilos)
+- GuidesHelper (Guías inteligentes)
+- DragDropHelper (Drag & Drop avanzado)
+- LayoutHelper (Ayudante de layouts)
+- DocGenerator (Generador de documentación)
+- LiveReload (Recarga en vivo)
+- VoiceControl (Control por voz)
+- RandomUIGenerator (Generador aleatorio de UI)
+- ResponsivePanel (Vista responsive)
+- ThemeSwitcher (Selector de tema)
+- LanguageSelector (Selector de idioma)
+- HistoryPanel (Historial de cambios)
+- FormGenerator (Generador de formularios)
+- Uploader (Subida de archivos)
+- MapView (Mapa)
+- WebView (Navegador web)
+- AudioPlayer (Reproductor de audio)
+- VideoPlayer (Reproductor de video)
+- CalendarRange (Calendario de rango)
+- ProgressCircle (Círculo de progreso)
+- ProgressLinear (Barra de progreso lineal)
+- Divider (Separador)
+- Subheader (Subtítulo)
+- Sheet (Panel inferior/lateral)
+- ChipGroup (Grupo de chips)
+- ExpansionTile (Tile expandible)
+- Card (Tarjeta)
+- AvatarGroup (Grupo de avatares)
+- BadgeGroup (Grupo de badges)
+- MenuButton (Botón de menú)
+- FloatingActionButton (Botón flotante de acción)
+- SpeedDial (Menú radial flotante)
+- Overlay (Superposición)
+- TooltipAvanzado (Tooltip avanzado)
+- SnackbarAction (Snackbar con acción)
+- NotificationBadge (Badge de notificación)
+- StepperVertical (Stepper vertical)
+- StepperHorizontal (Stepper horizontal)
+- TimelineVertical (Timeline vertical)
+- TimelineHorizontal (Timeline horizontal)
+- CarouselImage (Carrusel de imágenes)
+- CarouselWidget (Carrusel de widgets)
+- AccordionSection (Sección de acordeón)
+- ExpansionPanelList (Lista de paneles expandibles)
+- SkeletonText (Texto esqueleto)
+- SkeletonAvatar (Avatar esqueleto)
+- SkeletonCard (Tarjeta esqueleto)
+- QRCodeScanner (Escáner QR)
+- BarcodeScanner (Escáner de código de barras)
+- SignaturePadWidget (Widget de firma)
+- RichTextToolbar (Toolbar de texto enriquecido)
+- MarkdownEditor (Editor Markdown)
+- JsonEditor (Editor JSON)
+- XmlEditor (Editor XML)
+- YamlEditor (Editor YAML)
+- HtmlEditor (Editor HTML)
+- PdfEditor (Editor PDF)
+- TerminalInput (Entrada de terminal)
+- LogFilter (Filtro de logs)
+- LayerManager (Gestor de capas)
+- NodeConnector (Conector de nodos)
+- AnimationTimeline (Línea de tiempo de animaciones)
+- EventConnector (Conector de eventos)
+- MacroRecorder (Grabador de macros)
+- PluginInstaller (Instalador de plugins)
+- NavigationDrawer (Drawer de navegación)
+- CompatibilityMatrix (Matriz de compatibilidad)
+- PreviewWindow (Ventana de preview)
+- PresentationController (Controlador de presentación)
+- AssetDropZone (Zona de drop de assets)
+- ImportWizard (Asistente de importación)
+- ExportWizard (Asistente de exportación)
+- StylePresetSelector (Selector de presets de estilo)
+- GuideOverlay (Overlay de guías)
+- DragDropZone (Zona de drag & drop)
+- LayoutPresetSelector (Selector de layouts)
+- DocumentationPreview (Preview de documentación)
+- LiveReloadIndicator (Indicador de recarga en vivo)
+- VoiceCommandBar (Barra de comandos por voz)
+- UIGeneratorConfig (Configurador de UI aleatoria)
+- ResponsivePreview (Preview responsive)
+- ThemeSelectorDialog (Diálogo de selección de tema)
+- LanguageSelectorDialog (Diálogo de selección de idioma)
+- HistoryTimeline (Línea de tiempo de historial)
+- FormValidator (Validador de formularios)
+- FileUploader (Subida de archivos)
+- MapMarker (Marcador de mapa)
+- WebViewTab (Pestaña de navegador web)
+- AudioWaveform (Forma de onda de audio)
+- VideoTimeline (Línea de tiempo de video)
+- CalendarEvent (Evento de calendario)
+- ProgressDonut (Donut de progreso)
+- ProgressStep (Progreso por pasos)
+- DividerDashed (Separador punteado)
+- SubheaderIcon (Subtítulo con icono)
+- SheetModal (Sheet modal)
+- ChipAvatar (Chip con avatar)
+- ExpansionTileIcon (Tile expandible con icono)
+- CardImage (Tarjeta con imagen)
+- AvatarStatus (Avatar con estado)
+- BadgeNotification (Badge de notificación)
+- MenuDropdown (Menú desplegable)
+- FloatingActionMenu (Menú flotante de acción)
+- SpeedDialAction (Acción de SpeedDial)
+- OverlayLoader (Loader en overlay)
+- TooltipCustom (Tooltip personalizado)
+- SnackbarMultiAction (Snackbar con múltiples acciones)
+- NotificationToast (Toast de notificación)
+- StepperIcon (Stepper con iconos)
+- TimelineEvent (Evento en timeline)
+- CarouselDots (Carrusel con puntos)
+- AccordionIcon (Acordeón con icono)
+- ExpansionPanelIcon (Panel expandible con icono)
+- SkeletonLoaderCircle (Loader esqueleto circular)
+- QRCodeAnimated (QR animado)
+- BarcodeColored (Código de barras coloreado)
+- SignaturePadColored (Firma coloreada)
+- RichTextImage (Texto enriquecido con imagen)
+- MarkdownPreview (Preview Markdown)
+- JsonTree (Árbol JSON)
+- XmlTree (Árbol XML)
+- YamlTree (Árbol YAML)
+- HtmlTree (Árbol HTML)
+- PdfThumbnail (Miniatura PDF)
+- TerminalTabs (Pestañas de terminal)
+- LogTable (Tabla de logs)
+- LayerTree (Árbol de capas)
+- NodeGraph (Grafo de nodos)
+- AnimationCurve (Curva de animación)
+- EventTimeline (Línea de tiempo de eventos)
+- MacroList (Lista de macros)
+- PluginList (Lista de plugins)
+- NavigationTabs (Pestañas de navegación)
+- CompatibilityList (Lista de compatibilidad)
+- PreviewPanelAdvanced (Panel de preview avanzado)
+- PresentationSlide (Slide de presentación)
+- AssetGallery (Galería de assets)
+- ImportList (Lista de importación)
+- ExportList (Lista de exportación)
+- StyleThemeList (Lista de temas de estilo)
+- GuideList (Lista de guías)
+- DragDropList (Lista drag & drop)
+- LayoutList (Lista de layouts)
+- DocumentationList (Lista de documentación)
+- LiveReloadButton (Botón de recarga en vivo)
+- VoiceCommandList (Lista de comandos de voz)
+- UIGeneratorList (Lista de UIs generadas)
+- ResponsiveList (Lista responsive)
+- ThemeList (Lista de temas)
+- LanguageList (Lista de idiomas)
+- HistoryList (Lista de historial)
+- FormList (Lista de formularios)
+- FileList (Lista de archivos)
+- MapList (Lista de mapas)
+- WebViewList (Lista de WebViews)
+- AudioList (Lista de audios)
+- VideoList (Lista de videos)
+- CalendarList (Lista de calendarios)
+- ProgressList (Lista de progresos)
+- DividerList (Lista de divisores)
+- SubheaderList (Lista de subheaders)
+- SheetList (Lista de sheets)
+- ChipList (Lista de chips)
+- ExpansionTileList (Lista de tiles expandibles)
+- CardList (Lista de tarjetas)
+- AvatarList (Lista de avatares)
+- BadgeList (Lista de badges)
+- MenuList (Lista de menús)
+- FloatingActionList (Lista de acciones flotantes)
+- SpeedDialList (Lista de SpeedDials)
+- OverlayList (Lista de overlays)
+- TooltipList (Lista de tooltips)
+- SnackbarList (Lista de snackbars)
+- NotificationList (Lista de notificaciones)
+- StepperList (Lista de steppers)
+- TimelineList (Lista de timelines)
+- CarouselList (Lista de carousels)
+- AccordionList (Lista de acordeones)
+- ExpansionPanelList (Lista de paneles expandibles)
+- SkeletonLoaderList (Lista de loaders esqueleto)
+- QRCodeList (Lista de QR)
+- BarcodeList (Lista de códigos de barras)
+- SignaturePadList (Lista de firmas)
+- RichTextList (Lista de textos enriquecidos)
+- MarkdownList (Lista de markdowns)
+- JsonList (Lista de JSONs)
+- XmlList (Lista de XMLs)
+- YamlList (Lista de YAMLs)
+- HtmlList (Lista de HTMLs)
+- PdfList (Lista de PDFs)
+- TerminalList (Lista de terminales)
+- LogList (Lista de logs)
+- LayerList (Lista de capas)
+- NodeList (Lista de nodos)
+- AnimationList (Lista de animaciones)
+- EventList (Lista de eventos)
+- MacroList (Lista de macros)
+- PluginList (Lista de plugins)
+- NavigationList (Lista de navegaciones)
+- CompatibilityList (Lista de compatibilidades)
+- PreviewList (Lista de previews)
+- PresentationList (Lista de presentaciones)
+- AssetList (Lista de assets)
+- ImportList (Lista de importaciones)
+- ExportList (Lista de exportaciones)
+- StyleList (Lista de estilos)
+- GuideList (Lista de guías)
+- DragDropList (Lista de drag & drop)
+- LayoutList (Lista de layouts)
+- DocumentationList (Lista de documentaciones)
+- LiveReloadList (Lista de recargas en vivo)
+- VoiceCommandList (Lista de comandos de voz)
+- UIGeneratorList (Lista de generadores de UI)
+- ResponsiveList (Lista de responsives)
+- ThemeList (Lista de temas)
+- LanguageList (Lista de idiomas)
+- HistoryList (Lista de historiales)
+- FormList (Lista de formularios)
+- FileList (Lista de archivos)
+- MapList (Lista de mapas)
+- WebViewList (Lista de WebViews)
+- AudioList (Lista de audios)
+- VideoList (Lista de videos)
+- CalendarList (Lista de calendarios)
+- ProgressList (Lista de progresos)
+- DividerList (Lista de divisores)
+- SubheaderList (Lista de subheaders)
+- SheetList (Lista de sheets)
+- ChipList (Lista de chips)
+- ExpansionTileList (Lista de tiles expandibles)
+- CardList (Lista de tarjetas)
+- AvatarList (Lista de avatares)
+- BadgeList (Lista de badges)
+- MenuList (Lista de menús)
+- FloatingActionList (Lista de acciones flotantes)
+- SpeedDialList (Lista de SpeedDials)
+- OverlayList (Lista de overlays)
+- TooltipList (Lista de tooltips)
+
+---
+
+## 2. FORMALIZACIÓN DE LA LISTA DE WIDGETS PARA INCLUIR FUTURAMENTE
+
+- Mantener una lista actualizada de widgets reales implementados en la carpeta `widgets/`.
+- Cada nuevo widget o variante debe tener su propia clase y archivo/documentación.
+- Priorizar la implementación de widgets de uso común y alto impacto visual/interactivo.
+- Para cada widget nuevo, definir:
+  - Nombre
+  - Clase base (QWidget, QPushButton, etc.)
+  - Variantes/estilos (si aplica)
+  - Ejemplo de uso
+  - Integración en toolbox y documentación
+- Revisar y actualizar esta lista antes de cada sprint de desarrollo.
+
+**Siguiente paso recomendado:**  
+Seleccionar los widgets más prioritarios de la lista anterior y comenzar a implementarlos en la carpeta `widgets/`, importándolos y listándolos en la toolbox.
+
+---

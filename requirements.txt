@@ -1,0 +1,6 @@
+PyQt6
+PyInstaller
+GitPython
+watchdog
+jinja2
+jsonschema
